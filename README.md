@@ -9,7 +9,7 @@ This template is right for you if you are selling:
 - Access to content like courses or premium articles
 
 Core features:
-
+--------------
 - [Pre-configured Payload Config](#how-it-works)
 - [Authentication](#users-authentication)
 - [Access Control](#access-control)

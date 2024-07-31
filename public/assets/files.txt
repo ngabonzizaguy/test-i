@@ -1,0 +1,45 @@
+import { render, screen } from '@testing-library/react';
+import { useSearchParams } from 'next/navigation';
+import { RenderParamsComponent } from './RenderParamsComponent';
+
+jest.mock('next/navigation', () => ({
+  useSearchParams: jest.fn(),
+}));
+
+describe('RenderParamsComponent', () => {
+  beforeEach(() => {
+    useSearchParams.mockReturnValue(new URLSearchParams('error=Error&warning=Warning'));
+  });
+
+  test('renders without crashing with default props', () => {
+    render(<RenderParamsComponent />);
+    expect(screen.getByText('Error')).toBeInTheDocument();
+    expect(screen.getByText('Warning')).toBeInTheDocument();
+  });
+
+  test('renders with custom params', () => {
+    render(<RenderParamsComponent params={['custom', 'param']} />);
+    expect(screen.getByText('Error')).toBeInTheDocument();
+    expect(screen.getByText('Warning')).toBeInTheDocument();
+    expect(screen.queryByText('Custom')).toBeNull();
+    expect(screen.queryByText('Param')).toBeNull();
+  });
+
+  test('does not crash with unexpected props', () => {
+    render(<RenderParamsComponent unexpectedProp="unexpected" />);
+    expect(screen.getByText('Error')).toBeInTheDocument();
+    expect(screen.getByText('Warning')).toBeInTheDocument();
+  });
+
+  test('does not crash when onParams is not a function', () => {
+    render(<RenderParamsComponent onParams={null} />);
+    expect(screen.getByText('Error')).toBeInTheDocument();
+    expect(screen.getByText('Warning')).toBeInTheDocument();
+  });
+
+  test('calls onParams with correct param values', () => {
+    const onParamsMock = jest.fn();
+    render(<RenderParamsComponent onParams={onParamsMock} />);
+    expect(onParamsMock).toHaveBeenCalledWith(['Error', 'Warning']);
+  });
+});

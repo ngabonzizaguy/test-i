@@ -7,6 +7,8 @@ module.exports = {
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
+    'react/no-unescaped-entities': 'off',
+    '@next/next/no-page-custom-font': 'off',
     'no-console': 'off',
   },
   parserOptions: {

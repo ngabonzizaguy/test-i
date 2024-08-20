@@ -16,7 +16,7 @@ type ForgotPassword = (args: { email: string }) => Promise<void> // eslint-disab
 type Create = (args: { email: string; password: string; passwordConfirm: string }) => Promise<void> // eslint-disable-line no-unused-vars
 
 type Login = (args: { email: string; password: string }) => Promise<User> // eslint-disable-line no-unused-vars
-
+ 
 type Logout = () => Promise<void>
 
 type AuthContext = {
